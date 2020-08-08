@@ -1,21 +1,16 @@
 package pkg
 
 import (
-	"encoding/json"
+	"io/ioutil"
 
 	"github.com/oscartbeaumont/netlify-dynamic-dns/internal"
 )
 
 // These Are The Web Services Used To Determain Your IP (I couldn't get local detection working well)
 const (
-	ipv4ApiEndpoint = "https://v4.ident.me/.json"
-	ipv6ApiEndpoint = "https://v6.ident.me/.json"
+	ipv4ApiEndpoint = "https://v4.ident.me/"
+	ipv6ApiEndpoint = "https://v6.ident.me/"
 )
-
-// Web Service Response Body
-type apiResponse struct {
-	Address string
-}
 
 // GetPublicIPv4 returns your public IPv4 addresss as a string
 func GetPublicIPv4() (ip string, err error) {
@@ -23,8 +18,11 @@ func GetPublicIPv4() (ip string, err error) {
 	if err != nil {
 		return "", err
 	}
-	var response apiResponse
-	return response.Address, json.NewDecoder(res.Body).Decode(&response)
+	bodyBytes, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		return "", err
+	}
+	return string(bodyBytes), err
 }
 
 // GetPublicIPv6 returns your public IPv6 addresss as a string
@@ -33,6 +31,9 @@ func GetPublicIPv6() (ip string, err error) {
 	if err != nil {
 		return "", err
 	}
-	var response apiResponse
-	return response.Address, json.NewDecoder(res.Body).Decode(&response)
+	bodyBytes, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		return "", err
+	}
+	return string(bodyBytes), err
 }
