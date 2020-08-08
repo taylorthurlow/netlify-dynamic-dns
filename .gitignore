@@ -13,3 +13,12 @@
 
 # Mac Finder Files
 .DS_Store
+.vscode/launch.json
+dist/netlify-ddns_darwin_386
+dist/netlify-ddns_darwin_amd64
+dist/netlify-ddns_linux_386
+dist/netlify-ddns_linux_amd64
+dist/netlify-ddns_linux_arm
+dist/netlify-ddns_linux_arm64
+dist/netlify-ddns_windows_386
+dist/netlify-ddns_windows_amd64
